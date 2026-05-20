@@ -30,6 +30,26 @@ The goal: **100% local data sovereignty** with **sub-50ms activation latency**.
 
 ---
 
+## Quick Install
+
+### One-Command Deployment (Recommended)
+
+**macOS / Linux:**
+```bash
+curl -sSL https://raw.githubusercontent.com/coffee-notes/CoffeeAgent/main/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/coffee-notes/CoffeeAgent/main/install.bat | iex
+```
+
+### Manual Build
+
+See [Build from Source](#build-from-source) below.
+
+---
+
 ## Why It Exists
 
 ```
