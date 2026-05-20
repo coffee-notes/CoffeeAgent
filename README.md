@@ -1,5 +1,7 @@
 # CoffeeAgent
 
+<p align="center"><img src="./icon.jpg" width="150" alt="CoffeeAgent Icon"/></p>
+
 > *"The OS for creators who refuse to be a prompt slave."*
 
 [![Tauri](https://img.shields.io/badge/Tauri-2.0-black?logo=tauri&style=flat-square)](https://tauri.app)
