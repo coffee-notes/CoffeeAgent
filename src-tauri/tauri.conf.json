@@ -1,0 +1,44 @@
+{
+  "productName": "CoffeeAgent",
+  "version": "0.1.0",
+  "identifier": "com.coffeeagent.app",
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../ui"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "CoffeeAgent",
+        "width": 900,
+        "height": 520,
+        "visible": false,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "center": true,
+        "resizable": false,
+        "fullscreen": false,
+        "theme": "Dark"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self' http://127.0.0.1:11434;"
+    }
+  },
+  "trayIcon": {
+    "iconPath": "icons/icon.png",
+    "menuOnLeftClick": false,
+    "iconAsTemplate": true
+  },
+  "plugins": {
+    "shell": {
+      "scope": [
+        {"name": "ollama", "cmd": "curl", "args": ["-s", "http://127.0.0.1:11434/api/generate"]}
+      ]
+    }
+  }
+}

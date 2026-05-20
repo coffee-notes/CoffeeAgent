@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeAgent</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h3>≡ 开源生态接入</h3>
+            <div class="drop-zone" data-target="openclaw">
+                <span class="icon">🐾</span>
+                <p>OpenClaw SKILL.md</p>
+                <input type="file" accept=".md,.txt" class="file-input" hidden>
+            </div>
+            <div class="drop-zone" data-target="hermes">
+                <span class="icon">⚡</span>
+                <p>Hermes 触发器</p>
+                <input type="file" accept=".json,.yaml,.yml" class="file-input" hidden>
+            </div>
+            <div class="drop-zone" data-target="openhuman">
+                <span class="icon">🧠</span>
+                <p>OpenHuman 记忆树</p>
+                <input type="file" accept=".json,.md" class="file-input" hidden>
+            </div>
+            <div class="file-info" id="fileInfo"></div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="input-section">
+                <h3>✎ 15分钟无内耗 Micro-Post</h3>
+                <textarea id="microInput" placeholder="在此输入文本，Command+Enter提交..." rows="6"></textarea>
+                <div class="stats">
+                    <span id="wordCount">0 词</span>
+                    <span id="sentenceCount">0 句</span>
+                    <span id="fleschScore">Flesch: 0</span>
+                </div>
+                <button id="submitBtn" class="primary-btn">⏎ 生成增强</button>
+            </div>
+            
+            <div class="output-section">
+                <h3>◈ Ollama 流式输出</h3>
+                <div id="streamOutput" class="stream-box"></div>
+                <div class="model-select">
+                    <label>模型:</label>
+                    <select id="modelSelect">
+                        <option value="qwen2.5:7b">qwen2.5:7b (默认)</option>
+                        <option value="llama3.2:3b">llama3.2:3b (超轻量)</option>
+                        <option value="gemma3:4b">gemma3:4b (Google)</option>
+                        <option value="phi4:3.8b">phi4:3.8b (Microsoft)</option>
+                    </select>
+                    <span id="ollamaStatus" class="status-dot"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>
