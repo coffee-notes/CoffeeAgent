@@ -1,68 +1,66 @@
-# CoffeeAgent | 架构师的隐私级本地商业大脑
+# CoffeeAgent | 个人隐私级本地商业大脑
 
 <p align="center"><img src="./icon.jpg" width="180" alt="CoffeeAgent" style="border-radius: 20px;"/></p>
 
-> **不再做 Prompt 的奴隶，为你的业务建立绝对主权。**
+---
+
+## 项目定位
+
+CoffeeAgent 是一个以隐私为核心的本地化 AI 基建。
+
+不联网，数据不出库，双击即用的原生商业效率工具。
+
+**官方主页：** https://hub.coffeenotehq.com/
 
 ---
 
-## 这不是工具，是基建
+## 快速起步与协作
 
-CoffeeAgent 不是又一个需要折腾配置的开发者玩具。
+如果你希望参与 CoffeeAgent 的搭建或自行部署，请遵循以下流程。如果你是开发者，欢迎提交 PR 完善此路径。
 
-它是为处理**高价值商业情报**、极度重视**数据主权**、追求**本地化工作流**的独立创作者和企业打造的**数字底盘**。
+### 安装指南
 
-在云端大模型泛滥的时代，每一次粘贴业务文档到网页，都是一次隐私的泄露。CoffeeAgent 让你的模型运行在本地 M4 Mac 上，数据不出库，绝对安全。
+**第一步：克隆代码库**
+```bash
+git clone https://github.com/coffee-notes/CoffeeAgent.git
+```
 
----
+**第二步：环境要求**
+确保安装 Node.js 与 Tauri 环境依赖。
 
-## 三项核心主权
+**第三步：安装依赖**
+```bash
+npm install
+```
 
-| 维度 | 传统云端工具 | CoffeeAgent |
-|------|-------------|-------------|
-| **数据主权** | 上传至第三方服务器，训练集的一部分 | 100% 本地运行，物理断网也可工作 |
-| **效率主权** | 20 个标签页、5 次登录、3 次权限申请 | 双击即用，`⌥Space` 极速唤醒 |
-| **架构主权** | 玩具级脚本，无法支撑业务自动化 | 架构师级底盘，为 24/7 情报收集而生 |
+**第四步：本地构建**
+```bash
+npm run tauri build
+```
 
----
+**第五步：获取应用**
+在 `src-tauri/target/release/bundle/macos/` 下找到你的 CoffeeAgent.app。
 
-## 即刻部署
+### 协作建议
 
-无需开发背景，无需阅读文档，无需配置环境。
-
-**Mac 用户：**
-1. 前往 **[Releases](https://github.com/coffee-notes/CoffeeAgent/releases)** → 下载 `CoffeeAgent.dmg`
-2. 拖入「应用程序」文件夹，双击运行
-3. 按 `⌥ + Space` 唤醒你的私有大脑
-
-**Windows 用户：**
-1. 前往 **[Releases](https://github.com/coffee-notes/CoffeeAgent/releases)** → 下载 `CoffeeAgent-Setup.exe`
-2. 双击安装，按 `Alt + Space` 唤醒
-
-配合 Ollama 本地模型，构建你的商业情报中枢。
-
----
-
-## 🤝 商业审计与私有化部署
-
-CoffeeAgent 是 Hermes 商业基建体系的核心外壳。
-
-开源的永远只是冰山一角。对于复杂的企业级业务流——自动化情报收集、高阶 CRM 架构、私有化知识图谱搭建——你需要的是架构师级的深度审计与定制部署。
-
-### 你的团队是否面临这些困境？
-
-- AI 落地成本高昂，数据隐私却毫无保障
-- 业务逻辑混乱，Notion 和智能体都无法实现真正的自动化
-- 缺乏具备架构思维的工程师，将商业需求转化为技术基建
-
-### 这不是咨询，是落地。
-
-**[👉 预约架构师私有化审计](https://coffee-notes.com/audit)**
-
-开启 **21 天落地护航服务**：从业务诊断、架构设计到私有化部署，全链路交付。
+如果你在安装过程中遇到权限拦截（macOS Gatekeeper），请运行以下命令解除系统限制：
+```bash
+xattr -cr [你的App路径]
+```
 
 ---
 
-*Developed by Coffee Notes | 独立架构师*
+## 商业审计与服务
 
-*不教学，不解释，只交付结果。*
+CoffeeAgent 是我进行商业架构审计的核心引擎。
+
+如果你是企业主或业务负责人，希望将这种高效的本地流引入你的团队但不想触碰代码：
+
+- 请点击 [预约架构师私有化审计](https://hub.coffeenotehq.com/)
+- 我提供 21 天落地护航服务，直接帮你完成业务逻辑映射与系统基建搭建
+
+---
+
+## 协作协议
+
+保持开放，但严禁将此开源架构用于未经授权的商业复制。
