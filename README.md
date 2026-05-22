@@ -1,67 +1,113 @@
-# CoffeeAgent
+<p align="center"><img src="./icon.jpg" width="150" alt="CoffeeAgent" style="border-radius: 16px;"/></p>
 
-`Cross-platform, Local-First AI Agent Shell for Deep Work`
+<h1 align="center">CoffeeAgent</h1>
 
-**CoffeeAgent** is an open-source, local-first interface layer designed for high-efficiency creators. It bridges the gap between raw LLM backends (like Ollama) and your daily local workflows. Built with Tauri 2.0, it prioritizes performance, privacy, and low-latency interaction.
+<p align="center">
+  <a href="https://tauri.app"><img src="https://img.shields.io/badge/Tauri-2.0-black?logo=tauri&style=flat-square" alt="Tauri 2.0"/></a>
+  <a href="https://www.rust-lang.org"><img src="https://img.shields.io/badge/Rust-000000?logo=rust&style=flat-square" alt="Rust"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Local--First-2ea043?style=flat-square" alt="Local-First"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Privacy--Focused-8B949E?style=flat-square" alt="Privacy-Focused"/></a>
+</p>
+
+<p align="center"><strong>A cross-platform, local-first agent shell for creators.</strong></p>
 
 ---
 
-## 🛠 Tech Stack & Architecture
+## Overview
 
-* **Frontend**: JavaScript/CSS (Optimized for Apple Silicon retina displays).
-* **Core**: Rust (Tauri 2.0 shell for native OS integration).
-* **Backend**: Local LLM providers (Ollama recommended).
-* **Design Philosophy**: Minimalist UI, strict data sovereignty, no telemetry.
+CoffeeAgent is an open-source, native application shell built with Tauri 2.0 and Rust. It provides a lightweight, high-performance interface for integrating local LLM backends (Ollama) into your daily workflow without compromising data privacy.
 
-## 🚀 Building from Source
+Designed for developers and technical creators who prioritize sovereignty over convenience.
 
-For developers interested in contributing or modifying the core shell:
+---
 
-### Prerequisites
+## Quick Start
 
-- Node.js (Latest LTS)
-- Rust (Latest Stable)
-- Tauri CLI
+### Option A: Pre-built Binaries
 
-### Development Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/coffee-notes/CoffeeAgent.git
-cd CoffeeAgent
-
-# Install dependencies
-npm install
-
-# Run in development mode
-npm run tauri dev
-
-# Build for production
-npm run tauri build
-```
-
-## 📦 Installation
-
-Pre-built binaries are available on the [Releases](https://github.com/coffee-notes/CoffeeAgent/releases) page.
+Download the latest release from [GitHub Releases](https://github.com/coffee-notes/CoffeeAgent/releases).
 
 **macOS:**
 1. Download `CoffeeAgent.dmg`
-2. Drag to Applications
-3. Press `⌥ + Space` to activate
+2. Drag to Applications folder
+3. Launch and press `⌥ + Space` to activate
 
 **Windows:**
 1. Download `CoffeeAgent-Setup.exe`
 2. Install and launch
 3. Press `Alt + Space` to activate
 
-## 🤝 Contributing
+### Option B: One-Command Deployment
 
-We welcome PRs that improve performance, reduce memory footprint, or enhance the local-first architecture.
+**macOS / Linux:**
+```bash
+curl -sSL https://raw.githubusercontent.com/coffee-notes/CoffeeAgent/main/install.sh | bash
+```
 
-## 🔗 Official Hub
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/coffee-notes/CoffeeAgent/main/install.bat | iex
+```
 
-https://hub.coffeenotehq.com/
+### Option C: Build from Source
+
+```bash
+# Clone repository
+git clone https://github.com/coffee-notes/CoffeeAgent.git
+cd CoffeeAgent
+
+# Install dependencies
+npm install
+
+# Development mode
+npm run tauri dev
+
+# Production build
+npm run tauri build
+```
+
+*Contributions and feedback are welcome.*
 
 ---
 
-*Built by Coffee Notes | For creators who value data sovereignty.*
+## Core Philosophy
+
+- **Local-First**: All processing happens on-device. No cloud dependencies, no external API calls.
+- **Privacy-Focused**: Your data never leaves your machine. No telemetry, no tracking.
+- **Extensible**: Modular architecture supporting custom skill files and workflow integrations.
+
+---
+
+## Architecture
+
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | Vanilla JavaScript + CSS (Zero framework overhead) |
+| **Shell** | Tauri 2.0 (Rust) |
+| **Backend** | Ollama (Local LLM inference) |
+| **Design** | Minimalist, distraction-free interface |
+
+---
+
+## Collaboration
+
+We are looking for contributors to help improve the cross-platform experience. Areas of interest:
+
+- Linux ARM64 support
+- Windows integration optimization
+- Custom transformer plugins (WASM)
+- Documentation and localization
+
+Please open an issue or submit a PR if you'd like to contribute.
+
+---
+
+## License
+
+MIT © CoffeeAgent Contributors
+
+---
+
+**Official Hub:** https://hub.coffeenotehq.com/
+
+*Built for creators who value data sovereignty.*
