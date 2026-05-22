@@ -5,19 +5,19 @@
 }
 
 :root {
-    --bg-dark: #0d1117;
-    --bg-panel: #161b22;
-    --border: #30363d;
-    --accent: #238636;
-    --accent-hover: #2ea043;
-    --text: #c9d1d9;
-    --text-muted: #8b949e;
+    --bg-dark: #0a0c0f;
+    --bg-panel: #14171c;
+    --border: #2d333b;
+    --accent: #2ea043;
+    --accent-hover: #3fb950;
+    --text: #e6edf3;
+    --text-muted: #7d8590;
     --highlight: #58a6ff;
     --error: #f85149;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Mono", "Consolas", monospace;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "SF Mono", "Helvetica Neue", sans-serif;
     background: var(--bg-dark);
     color: var(--text);
     height: 100vh;
@@ -25,10 +25,29 @@ body {
     user-select: none;
 }
 
+/* Ensure all interactive elements are never consumed by the drag region */
+button, input, select, textarea, a, label {
+    -webkit-app-region: no-drag;
+}
+
+/* Hide all scrollbars - Apple-like clean */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
 .container {
     display: flex;
     height: 100%;
-    background: linear-gradient(135deg, #0d1117 0%, #0a0c10 100%);
+    background: linear-gradient(180deg, #0d1117 0%, #07090c 100%);
 }
 
 .left-panel {
@@ -57,13 +76,13 @@ body {
     padding: 16px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     position: relative;
 }
 
 .drop-zone:hover, .drop-zone.drag-over {
     border-color: var(--accent);
-    background: rgba(35, 134, 54, 0.1);
+    background: rgba(46, 160, 67, 0.1);
 }
 
 .drop-zone.active {
@@ -95,13 +114,12 @@ body {
 
 .right-panel {
     flex: 1;
-    padding: 12px 16px 12px 16px;
+    padding: 8px 16px 12px 16px;
+    padding-top: 43px;  /* push below native drag region */
     display: flex;
     flex-direction: column;
     gap: 8px;
     overflow: hidden;
-    /* Push content below fixed drag-bar */
-    padding-top: 48px;
 }
 
 .input-section {
@@ -120,9 +138,9 @@ body {
 
 textarea {
     width: 100%;
-    height: 90px;
-    min-height: 70px;
-    max-height: 120px;
+    height: 80px;
+    min-height: 60px;
+    max-height: 110px;
     background: var(--bg-panel);
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -132,12 +150,18 @@ textarea {
     line-height: 1.5;
     resize: none;
     font-family: inherit;
-    transition: border-color 0.2s;
+    transition: all 0.3s ease;
 }
 
 textarea:focus {
     outline: none;
-    border-color: var(--highlight);
+    border-color: #555;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
 }
 
 .stats {
@@ -162,12 +186,13 @@ textarea:focus {
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
     align-self: flex-start;
 }
 
 .primary-btn:hover {
     background: var(--accent-hover);
+    box-shadow: 0 0 0 2px rgba(46, 160, 67, 0.3);
 }
 
 .primary-btn:disabled {
@@ -177,10 +202,10 @@ textarea:focus {
 
 .output-section {
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    min-height: 0;
 }
 
 .stream-box {
@@ -197,133 +222,11 @@ textarea:focus {
     color: var(--text);
 }
 
-.model-select {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-}
-
-.model-select label {
-    color: var(--text-muted);
-}
-
-select {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 4px 8px;
-    color: var(--text);
-    font-size: 11px;
-    cursor: pointer;
-}
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--error);
-    display: inline-block;
-}
-
-.status-dot.online {
-    background: var(--accent);
-    box-shadow: 0 0 6px var(--accent);
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
-}
-
-/* Animation for streaming text */
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-.streaming::after {
-    content: "▊";
-    animation: pulse 1s infinite;
-    color: var(--accent);
-}
-
-/* Custom UI Font size enlargement for improved readability */
-body, input, button, textarea, select {
-    font-size: 16px !important;
-    line-height: 1.6 !important;
-}
-
-/* Adjustments for elements that had smaller hardcoded font-sizes to keep proportions */
-.left-panel h3, .input-section h3, .output-section h3 {
-    font-size: 14px !important;
-}
-
-.drop-zone p {
-    font-size: 13px !important;
-}
-
-.file-info {
-    font-size: 12px !important;
-}
-
-.stats {
-    font-size: 13px !important;
-}
-
-.primary-btn {
-    font-size: 14px !important;
-}
-
-.stream-box {
-    font-size: 15px !important;
-}
-
-.model-select {
-    font-size: 14px !important;
-}
-
-select {
-    font-size: 13px !important;
-}
-
-/* =========================================================
-   Frameless Window Drag Region — AUTHORITATIVE DEFINITION
-   Must be the ONLY element with -webkit-app-region: drag
-   ========================================================= */
-.drag-bar {
-    width: 100%;
-    height: 40px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999999;
-    -webkit-app-region: drag;
-    background: transparent;
-    /* No pointer-events override — let Tauri handle natively */
-}
-
-/* Every interactive element inside the draggable zone must opt out */
-button, input, select, textarea, a,
-.drop-zone, .file-info, ::-webkit-scrollbar {
-    -webkit-app-region: no-drag;
-}
-
-/* Model Dispatcher Settings Panel styles */
+/* ─────────────────────────────────────────────
+   Hybrid Model Dispatcher — Settings Panel
+   ───────────────────────────────────────────── */
 .settings-section {
+    flex-shrink: 0;
     background: var(--bg-panel);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -331,15 +234,15 @@ button, input, select, textarea, a,
     display: flex;
     flex-direction: column;
     gap: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .settings-section h3 {
-    font-size: 12px !important;
+    font-size: 11px;
     font-weight: 600;
     color: var(--text-muted);
     text-transform: uppercase;
+    letter-spacing: 0.5px;
     margin-bottom: 2px;
 }
 
@@ -352,37 +255,40 @@ button, input, select, textarea, a,
 .setting-item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 3px;
+    transition: all 0.25s ease;
 }
 
 .setting-item label {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
     color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
-.setting-item select, 
-.setting-item input {
-    background: rgba(13, 17, 23, 0.7);
+.setting-item select,
+.setting-item input[type="text"],
+.setting-item input[type="password"] {
+    background: rgba(10, 12, 15, 0.8);
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 6px 8px;
+    padding: 5px 8px;
     color: var(--text);
-    font-size: 13px !important;
+    font-size: 12px;
     width: 100%;
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.25s ease;
+    -webkit-app-region: no-drag;
 }
 
-.setting-item select:focus, 
+.setting-item select:focus,
 .setting-item input:focus {
     border-color: var(--highlight);
-    box-shadow: 0 0 6px rgba(88, 166, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.15);
 }
 
 .model-input-wrapper {
-    position: relative;
     width: 100%;
 }
 
@@ -398,41 +304,70 @@ button, input, select, textarea, a,
 .status-indicator {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 11px;
+    gap: 6px;
+    font-size: 10px;
     color: var(--text-muted);
 }
 
 #saveSettingsBtn {
-    align-self: auto;
-    font-size: 12px !important;
-    padding: 6px 12px;
+    font-size: 11px;
+    padding: 5px 12px;
     border-radius: 6px;
-    background: var(--accent);
-    cursor: pointer;
+    align-self: auto;
 }
 
-#saveSettingsBtn:hover {
-    background: var(--accent-hover);
-}
-
-#apiKeyWrapper, #baseUrlWrapper {
-    opacity: 1;
-    transform: scaleY(1);
-    transform-origin: top;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Helper classes for dynamic state hidden/shown */
+/* Smooth collapse animation for dynamic fields */
 .setting-item.hidden {
-    opacity: 0 !important;
-    transform: scaleY(0) !important;
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    opacity: 0;
+    transform: scaleY(0);
+    height: 0;
+    padding: 0;
+    margin: 0;
     overflow: hidden;
     pointer-events: none;
+    transform-origin: top;
+}
+
+/* Global select styling */
+select {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: var(--text);
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--highlight);
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.15);
 }
 
 
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--error);
+    display: inline-block;
+}
 
+.status-dot.online {
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+}
+
+/* Animation for streaming text */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.streaming::after {
+    content: "▊";
+    animation: pulse 1s infinite;
+    color: var(--accent);
+}

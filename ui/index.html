@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="drag-bar"></div>
+    <!-- Tauri v2 Native Drag Region — zero CSS dependency, handled by Tauri at OS level -->
+    <div data-tauri-drag-region style="height: 35px; width: 100%; position: fixed; top: 0; left: 0; z-index: 99999; background: transparent;"></div>
+
     <div class="container">
         <div class="left-panel">
             <h3>≡ 开源生态接入</h3>
@@ -28,11 +30,21 @@
             </div>
             <div class="file-info" id="fileInfo"></div>
         </div>
-        
+
         <div class="right-panel">
             <div class="input-section">
                 <h3>✎ 15分钟无内耗 Micro-Post</h3>
-                <textarea id="microInput" placeholder="在此输入文本，Command+Enter提交..." rows="6"></textarea>
+                <textarea id="microInput" placeholder="💡 欢迎使用 CoffeeAgent — 你的个人 AI 终点站！
+
+【它能解决什么痛点？】
+1. 绝对隐私：支持本地断网运行，公司机密 / 私人日记放心处理。
+2. 拒绝大厂绑架：一键无缝切换本地 Ollama 与顶级云端大模型（硅基流动 DeepSeek、OpenRouter）。
+3. 极速唤醒：常驻 macOS 菜单栏，随叫随到，用完即走。
+
+【小白如何开始？】
+👇 第1步：在下方『服务提供商』选择你的 AI 大脑并输入 API Key。
+⌨️ 第2步：清空本框，输入你要处理的文本或问题。
+🚀 第3步：点击『生成增强』，见证奇迹。"></textarea>
                 <div class="stats">
                     <span id="wordCount">0 词</span>
                     <span id="sentenceCount">0 句</span>
@@ -40,12 +52,12 @@
                 </div>
                 <button id="submitBtn" class="primary-btn">⏎ 生成增强</button>
             </div>
-            
+
             <div class="output-section">
                 <h3>◈ 大模型流式输出</h3>
                 <div id="streamOutput" class="stream-box"></div>
             </div>
-            
+
             <div class="settings-section">
                 <h3>⚙ 混合大模型调度台 (Model Dispatcher)</h3>
                 <div class="settings-grid">
@@ -58,7 +70,7 @@
                             <option value="custom">Custom API (自定义接口)</option>
                         </select>
                     </div>
-                    
+
                     <div class="setting-item">
                         <label for="modelInput">模型名称 (Model)</label>
                         <div class="model-input-wrapper">
@@ -74,18 +86,18 @@
                             </datalist>
                         </div>
                     </div>
-                    
+
                     <div class="setting-item" id="apiKeyWrapper">
                         <label for="apiKeyInput">API 密钥 (API Key)</label>
                         <input type="password" id="apiKeyInput" placeholder="输入 API Key / Token...">
                     </div>
-                    
+
                     <div class="setting-item" id="baseUrlWrapper">
                         <label for="baseUrlInput">接口代理地址 (Base URL)</label>
                         <input type="text" id="baseUrlInput" placeholder="https://api.example.com/v1">
                     </div>
                 </div>
-                
+
                 <div class="settings-footer">
                     <div class="status-indicator">
                         <span id="ollamaStatus" class="status-dot"></span>
@@ -96,7 +108,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="main.js"></script>
 </body>
 </html>
