@@ -12,6 +12,7 @@ class CoffeeAgent {
     init() {
         this.bindDropZones();
         this.bindInputHandlers();
+        this.bindSettings();
         this.checkOllamaStatus();
         setInterval(() => this.checkOllamaStatus(), 10000);
     }
@@ -144,15 +145,143 @@ class CoffeeAgent {
     // 5-minute keep-alive, auto VRAM release
     // ═══════════════════════════════════════════════════════════
     async checkOllamaStatus() {
+        const provider = document.getElementById('providerSelect')?.value || 'local-ollama';
+        if (provider !== 'local-ollama') {
+            const statusDot = document.getElementById('ollamaStatus');
+            const statusText = document.getElementById('statusText');
+            if (statusDot) statusDot.className = 'status-dot online';
+            return;
+        }
+
         const statusDot = document.getElementById('ollamaStatus');
+        const statusText = document.getElementById('statusText');
         try {
             const res = await fetch('http://127.0.0.1:11434/api/tags', { 
                 method: 'GET',
                 signal: AbortSignal.timeout(3000)
             });
-            statusDot.className = res.ok ? 'status-dot online' : 'status-dot';
+            if (res.ok) {
+                statusDot.className = 'status-dot online';
+                statusText.textContent = '本地 Ollama 服务在线';
+            } else {
+                statusDot.className = 'status-dot';
+                statusText.textContent = '本地 Ollama 离线 (请启动 Ollama)';
+            }
         } catch {
             statusDot.className = 'status-dot';
+            statusText.textContent = '本地 Ollama 离线 (请启动 Ollama)';
+        }
+    }
+
+    bindSettings() {
+        const providerSelect = document.getElementById('providerSelect');
+        const modelInput = document.getElementById('modelInput');
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const baseUrlInput = document.getElementById('baseUrlInput');
+        const saveBtn = document.getElementById('saveSettingsBtn');
+
+        // Load settings from localStorage or use defaults
+        const stored = localStorage.getItem('coffee_agent_settings');
+        if (stored) {
+            try {
+                const settings = JSON.parse(stored);
+                providerSelect.value = settings.provider || 'local-ollama';
+                modelInput.value = settings.model || 'qwen2.5:7b';
+                apiKeyInput.value = settings.apiKey || '';
+                baseUrlInput.value = settings.baseUrl || '';
+            } catch (e) {
+                console.error('Failed to parse settings:', e);
+            }
+        } else {
+            providerSelect.value = 'local-ollama';
+            modelInput.value = 'qwen2.5:7b';
+            apiKeyInput.value = '';
+            baseUrlInput.value = 'http://127.0.0.1:11434/api/generate';
+        }
+
+        // Apply initial fields visibility
+        this.toggleSettingsFields(providerSelect.value);
+
+        // Listen for provider changes
+        providerSelect.addEventListener('change', () => {
+            const provider = providerSelect.value;
+            this.toggleSettingsFields(provider);
+            
+            // Auto-fill defaults
+            if (provider === 'local-ollama') {
+                modelInput.value = 'qwen2.5:7b';
+                baseUrlInput.value = 'http://127.0.0.1:11434/api/generate';
+            } else if (provider === 'siliconflow') {
+                modelInput.value = 'deepseek-ai/DeepSeek-V3';
+                baseUrlInput.value = 'https://api.siliconflow.cn/v1/chat/completions';
+            } else if (provider === 'openrouter') {
+                modelInput.value = 'deepseek/deepseek-chat';
+                baseUrlInput.value = 'https://openrouter.ai/api/v1/chat/completions';
+            } else if (provider === 'custom') {
+                modelInput.value = '';
+                baseUrlInput.value = '';
+            }
+        });
+
+        // Listen for Save button click
+        saveBtn.addEventListener('click', () => {
+            const settings = {
+                provider: providerSelect.value,
+                model: modelInput.value.trim(),
+                apiKey: apiKeyInput.value.trim(),
+                baseUrl: baseUrlInput.value.trim()
+            };
+
+            if (!settings.model) {
+                alert('请填写模型名称！');
+                return;
+            }
+            if (settings.provider !== 'local-ollama' && !settings.apiKey) {
+                alert('使用云端模型必须填写 API Key！');
+                return;
+            }
+            if (settings.provider === 'custom' && !settings.baseUrl) {
+                alert('请填写接口地址！');
+                return;
+            }
+
+            localStorage.setItem('coffee_agent_settings', JSON.stringify(settings));
+
+            // Save confirmation feedback
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '✅ 配置已保存并应用';
+            saveBtn.style.background = 'var(--accent-hover)';
+            setTimeout(() => {
+                saveBtn.innerHTML = originalText;
+                saveBtn.style.background = 'var(--accent)';
+            }, 2000);
+        });
+    }
+
+    toggleSettingsFields(provider) {
+        const apiKeyWrapper = document.getElementById('apiKeyWrapper');
+        const baseUrlWrapper = document.getElementById('baseUrlWrapper');
+        const statusText = document.getElementById('statusText');
+
+        if (provider === 'local-ollama') {
+            apiKeyWrapper.classList.add('hidden');
+            baseUrlWrapper.classList.add('hidden');
+            statusText.textContent = '本地 Ollama 检测中...';
+        } else if (provider === 'siliconflow') {
+            apiKeyWrapper.classList.remove('hidden');
+            baseUrlWrapper.classList.add('hidden');
+            statusText.textContent = '硅基流动云端连接就绪';
+            document.getElementById('ollamaStatus').className = 'status-dot online';
+        } else if (provider === 'openrouter') {
+            apiKeyWrapper.classList.remove('hidden');
+            baseUrlWrapper.classList.add('hidden');
+            statusText.textContent = 'OpenRouter 云端连接就绪';
+            document.getElementById('ollamaStatus').className = 'status-dot online';
+        } else if (provider === 'custom') {
+            apiKeyWrapper.classList.remove('hidden');
+            baseUrlWrapper.classList.remove('hidden');
+            statusText.textContent = '自定义第三方 API 连接就绪';
+            document.getElementById('ollamaStatus').className = 'status-dot online';
         }
     }
 
@@ -160,7 +289,17 @@ class CoffeeAgent {
         const input = document.getElementById('microInput').value.trim();
         if (!input || this.isStreaming) return;
 
-        const model = document.getElementById('modelSelect').value;
+        // Retrieve config from UI
+        const provider = document.getElementById('providerSelect').value;
+        const model = document.getElementById('modelInput').value.trim();
+        const apiKey = document.getElementById('apiKeyInput').value.trim();
+        const baseUrl = document.getElementById('baseUrlInput').value.trim();
+
+        if (!model) {
+            alert('请在下方配置区填写或选择模型！');
+            return;
+        }
+
         const output = document.getElementById('streamOutput');
         const btn = document.getElementById('submitBtn');
 
@@ -168,18 +307,20 @@ class CoffeeAgent {
         btn.disabled = true;
         output.innerHTML = '<span class="streaming"></span>';
 
-        // Build context from loaded files
         const context = this.buildContext();
         const prompt = this.buildPrompt(input, context);
 
         try {
-            await this.streamOllama(prompt, model, output);
+            if (provider === 'local-ollama') {
+                await this.streamOllama(prompt, model, output);
+            } else {
+                await this.streamCloudModel(prompt, provider, model, apiKey, baseUrl, output);
+            }
         } catch (err) {
-            output.innerHTML = `<span style="color:#f85149">[Error] ${err.message}</span>`;
+            output.innerHTML = `<span style="color:#f85149">[连接错误] ${err.message}</span>`;
         } finally {
             this.isStreaming = false;
             btn.disabled = false;
-            // Auto release after 5min handled by Ollama's keep_alive param
         }
     }
 
@@ -222,7 +363,7 @@ ${context}
                 model: model,
                 prompt: prompt,
                 stream: true,
-                keep_alive: '5m'  // Auto release after 5 minutes
+                keep_alive: '5m'
             })
         });
 
@@ -250,6 +391,95 @@ ${context}
                     if (data.done) break;
                 } catch {}
             }
+        }
+    }
+
+    async streamCloudModel(prompt, provider, model, apiKey, baseUrl, outputEl) {
+        let url = baseUrl;
+        if (!url) {
+            if (provider === 'siliconflow') {
+                url = 'https://api.siliconflow.cn/v1/chat/completions';
+            } else if (provider === 'openrouter') {
+                url = 'https://openrouter.ai/api/v1/chat/completions';
+            }
+        }
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        };
+
+        if (provider === 'openrouter') {
+            headers['HTTP-Referer'] = 'https://coffeeagent.io';
+            headers['X-Title'] = 'CoffeeAgent';
+        }
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+                model: model,
+                messages: [
+                    { role: 'user', content: prompt }
+                ],
+                stream: true
+            })
+        });
+
+        if (!response.ok) {
+            let errorText = '';
+            try {
+                errorText = await response.text();
+            } catch {}
+            throw new Error(`服务商响应错误 (${response.status}): ${errorText || '无法连接 API'}`);
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let fullText = '';
+        let partialChunk = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const textChunk = decoder.decode(value, { stream: true });
+            const rawLines = (partialChunk + textChunk).split('\n');
+            partialChunk = rawLines.pop() || '';
+
+            for (const line of rawLines) {
+                const trimmed = line.trim();
+                if (!trimmed) continue;
+                if (trimmed === 'data: [DONE]') continue;
+
+                if (trimmed.startsWith('data: ')) {
+                    try {
+                        const jsonStr = trimmed.slice(6);
+                        const data = JSON.parse(jsonStr);
+                        const content = data.choices?.[0]?.delta?.content;
+                        if (content) {
+                            fullText += content;
+                            outputEl.textContent = fullText;
+                            outputEl.scrollTop = outputEl.scrollHeight;
+                        }
+                    } catch (e) {
+                        // Silent catch
+                    }
+                }
+            }
+        }
+        
+        if (partialChunk && partialChunk.startsWith('data: ') && !partialChunk.endsWith('[DONE]')) {
+            try {
+                const jsonStr = partialChunk.slice(6).trim();
+                const data = JSON.parse(jsonStr);
+                const content = data.choices?.[0]?.delta?.content;
+                if (content) {
+                    fullText += content;
+                    outputEl.textContent = fullText;
+                    outputEl.scrollTop = outputEl.scrollHeight;
+                }
+            } catch {}
         }
     }
 }

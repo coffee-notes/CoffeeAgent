@@ -42,17 +42,56 @@
             </div>
             
             <div class="output-section">
-                <h3>◈ Ollama 流式输出</h3>
+                <h3>◈ 大模型流式输出</h3>
                 <div id="streamOutput" class="stream-box"></div>
-                <div class="model-select">
-                    <label>模型:</label>
-                    <select id="modelSelect">
-                        <option value="qwen2.5:7b">qwen2.5:7b (默认)</option>
-                        <option value="llama3.2:3b">llama3.2:3b (超轻量)</option>
-                        <option value="gemma3:4b">gemma3:4b (Google)</option>
-                        <option value="phi4:3.8b">phi4:3.8b (Microsoft)</option>
-                    </select>
-                    <span id="ollamaStatus" class="status-dot"></span>
+            </div>
+            
+            <div class="settings-section">
+                <h3>⚙ 混合大模型调度台 (Model Dispatcher)</h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="providerSelect">服务提供商 (Provider)</label>
+                        <select id="providerSelect">
+                            <option value="local-ollama">Local Ollama (本地服务)</option>
+                            <option value="siliconflow">SiliconFlow (硅基流动)</option>
+                            <option value="openrouter">OpenRouter (万能接入)</option>
+                            <option value="custom">Custom API (自定义接口)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="modelInput">模型名称 (Model)</label>
+                        <div class="model-input-wrapper">
+                            <input type="text" id="modelInput" list="modelSuggestions" placeholder="输入或选择模型...">
+                            <datalist id="modelSuggestions">
+                                <option value="qwen2.5:7b">
+                                <option value="llama3.2:3b">
+                                <option value="deepseek-ai/DeepSeek-V3">
+                                <option value="deepseek-ai/DeepSeek-R1">
+                                <option value="meta-llama/llama-3.3-70b-instruct">
+                                <option value="google/gemini-2.5-flash">
+                                <option value="anthropic/claude-3.5-sonnet">
+                            </datalist>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item" id="apiKeyWrapper">
+                        <label for="apiKeyInput">API 密钥 (API Key)</label>
+                        <input type="password" id="apiKeyInput" placeholder="输入 API Key / Token...">
+                    </div>
+                    
+                    <div class="setting-item" id="baseUrlWrapper">
+                        <label for="baseUrlInput">接口代理地址 (Base URL)</label>
+                        <input type="text" id="baseUrlInput" placeholder="https://api.example.com/v1">
+                    </div>
+                </div>
+                
+                <div class="settings-footer">
+                    <div class="status-indicator">
+                        <span id="ollamaStatus" class="status-dot"></span>
+                        <span id="statusText">本地服务检测中...</span>
+                    </div>
+                    <button id="saveSettingsBtn" class="primary-btn">💾 保存并应用配置</button>
                 </div>
             </div>
         </div>

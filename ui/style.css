@@ -309,4 +309,116 @@ button, input, select, textarea, .drop-zone, .file-info, ::-webkit-scrollbar {
     -webkit-app-region: no-drag !important;
 }
 
+/* Model Dispatcher Settings Panel styles */
+.settings-section {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.settings-section h3 {
+    font-size: 12px !important;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.setting-item label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.setting-item select, 
+.setting-item input {
+    background: rgba(13, 17, 23, 0.7);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 8px;
+    color: var(--text);
+    font-size: 13px !important;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.setting-item select:focus, 
+.setting-item input:focus {
+    border-color: var(--highlight);
+    box-shadow: 0 0 6px rgba(88, 166, 255, 0.15);
+}
+
+.model-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.settings-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 2px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+#saveSettingsBtn {
+    align-self: auto;
+    font-size: 12px !important;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: var(--accent);
+    cursor: pointer;
+}
+
+#saveSettingsBtn:hover {
+    background: var(--accent-hover);
+}
+
+#apiKeyWrapper, #baseUrlWrapper {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Helper classes for dynamic state hidden/shown */
+.setting-item.hidden {
+    opacity: 0 !important;
+    transform: scaleY(0) !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+
 
