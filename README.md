@@ -1,66 +1,67 @@
-# CoffeeAgent | 个人隐私级本地商业大脑
+# CoffeeAgent
 
-<p align="center"><img src="./icon.jpg" width="180" alt="CoffeeAgent" style="border-radius: 20px;"/></p>
+`Cross-platform, Local-First AI Agent Shell for Deep Work`
 
----
-
-## 项目定位
-
-CoffeeAgent 是一个以隐私为核心的本地化 AI 基建。
-
-不联网，数据不出库，双击即用的原生商业效率工具。
-
-**官方主页：** https://hub.coffeenotehq.com/
+**CoffeeAgent** is an open-source, local-first interface layer designed for high-efficiency creators. It bridges the gap between raw LLM backends (like Ollama) and your daily local workflows. Built with Tauri 2.0, it prioritizes performance, privacy, and low-latency interaction.
 
 ---
 
-## 快速起步与协作
+## 🛠 Tech Stack & Architecture
 
-如果你希望参与 CoffeeAgent 的搭建或自行部署，请遵循以下流程。如果你是开发者，欢迎提交 PR 完善此路径。
+* **Frontend**: JavaScript/CSS (Optimized for Apple Silicon retina displays).
+* **Core**: Rust (Tauri 2.0 shell for native OS integration).
+* **Backend**: Local LLM providers (Ollama recommended).
+* **Design Philosophy**: Minimalist UI, strict data sovereignty, no telemetry.
 
-### 安装指南
+## 🚀 Building from Source
 
-**第一步：克隆代码库**
+For developers interested in contributing or modifying the core shell:
+
+### Prerequisites
+
+- Node.js (Latest LTS)
+- Rust (Latest Stable)
+- Tauri CLI
+
+### Development Setup
+
 ```bash
+# Clone the repository
 git clone https://github.com/coffee-notes/CoffeeAgent.git
-```
+cd CoffeeAgent
 
-**第二步：环境要求**
-确保安装 Node.js 与 Tauri 环境依赖。
-
-**第三步：安装依赖**
-```bash
+# Install dependencies
 npm install
-```
 
-**第四步：本地构建**
-```bash
+# Run in development mode
+npm run tauri dev
+
+# Build for production
 npm run tauri build
 ```
 
-**第五步：获取应用**
-在 `src-tauri/target/release/bundle/macos/` 下找到你的 CoffeeAgent.app。
+## 📦 Installation
 
-### 协作建议
+Pre-built binaries are available on the [Releases](https://github.com/coffee-notes/CoffeeAgent/releases) page.
 
-如果你在安装过程中遇到权限拦截（macOS Gatekeeper），请运行以下命令解除系统限制：
-```bash
-xattr -cr [你的App路径]
-```
+**macOS:**
+1. Download `CoffeeAgent.dmg`
+2. Drag to Applications
+3. Press `⌥ + Space` to activate
+
+**Windows:**
+1. Download `CoffeeAgent-Setup.exe`
+2. Install and launch
+3. Press `Alt + Space` to activate
+
+## 🤝 Contributing
+
+We welcome PRs that improve performance, reduce memory footprint, or enhance the local-first architecture.
+
+## 🔗 Official Hub
+
+https://hub.coffeenotehq.com/
 
 ---
 
-## 商业审计与服务
-
-CoffeeAgent 是我进行商业架构审计的核心引擎。
-
-如果你是企业主或业务负责人，希望将这种高效的本地流引入你的团队但不想触碰代码：
-
-- 请点击 [预约架构师私有化审计](https://hub.coffeenotehq.com/)
-- 我提供 21 天落地护航服务，直接帮你完成业务逻辑映射与系统基建搭建
-
----
-
-## 协作协议
-
-保持开放，但严禁将此开源架构用于未经授权的商业复制。
+*Built by Coffee Notes | For creators who value data sovereignty.*
