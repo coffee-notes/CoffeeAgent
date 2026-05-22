@@ -99,7 +99,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .input-section {
@@ -294,14 +294,15 @@ select {
 
 /* Frameless Window Drag Region */
 .drag-bar {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 35px;
     background: transparent;
-    -webkit-app-region: drag;
-    z-index: 9999;
+    -webkit-app-region: drag !important;
+    z-index: 99999 !important;
+    pointer-events: auto;
 }
 
 /* Prevent dragging on all interactive elements and ensure clicks pass through correctly */
