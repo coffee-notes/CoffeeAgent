@@ -252,3 +252,61 @@ select {
     animation: pulse 1s infinite;
     color: var(--accent);
 }
+
+/* Custom UI Font size enlargement for improved readability */
+body, input, button, textarea, select {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+/* Adjustments for elements that had smaller hardcoded font-sizes to keep proportions */
+.left-panel h3, .input-section h3, .output-section h3 {
+    font-size: 14px !important;
+}
+
+.drop-zone p {
+    font-size: 13px !important;
+}
+
+.file-info {
+    font-size: 12px !important;
+}
+
+.stats {
+    font-size: 13px !important;
+}
+
+.primary-btn {
+    font-size: 14px !important;
+}
+
+.stream-box {
+    font-size: 15px !important;
+}
+
+.model-select {
+    font-size: 14px !important;
+}
+
+select {
+    font-size: 13px !important;
+}
+
+/* Frameless Window Drag Region */
+.drag-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 35px;
+    background: transparent;
+    -webkit-app-region: drag;
+    z-index: 9999;
+}
+
+/* Prevent dragging on all interactive elements and ensure clicks pass through correctly */
+button, input, select, textarea, .drop-zone, .file-info, ::-webkit-scrollbar {
+    -webkit-app-region: no-drag !important;
+}
+
+

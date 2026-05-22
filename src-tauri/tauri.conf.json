@@ -14,9 +14,9 @@
         "title": "CoffeeAgent",
         "width": 900,
         "height": 520,
-        "visible": false,
+        "visible": true,
         "decorations": false,
-        "transparent": true,
+        "transparent": false,
         "alwaysOnTop": true,
         "skipTaskbar": true,
         "center": true,
@@ -35,10 +35,6 @@
     }
   },
   "plugins": {
-    "shell": {
-      "scope": [
-        {"name": "ollama", "cmd": "curl", "args": ["-s", "http://127.0.0.1:11434/api/generate"]}
-      ]
-    }
+    "shell": {}
   }
 }
