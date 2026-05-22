@@ -7,12 +7,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Tauri v2 Native Drag Region — zero CSS dependency, handled by Tauri at OS level -->
-    <div data-tauri-drag-region style="height: 35px; width: 100%; position: fixed; top: 0; left: 0; z-index: 99999; background: transparent;"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Tauri v2 Native Drag Region
+         This is the ONLY drag handle. All CSS webkit-app-region
+         rules have been removed. Tauri handles this at OS level.
+         ═══════════════════════════════════════════════════════════ -->
+    <div data-tauri-drag-region style="position: fixed; top: 0; left: 0; width: 100%; height: 35px; z-index: 9999; background: transparent;"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Getting Started Banner
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="getting-started" id="gettingStarted">
+        <button class="gs-close" id="gsClose" aria-label="关闭">✕</button>
+        <div class="gs-grid">
+            <div class="gs-item">
+                <span class="gs-icon">🔒</span>
+                <strong>绝对隐私</strong>
+                <span>本地断网运行，数据不离机</span>
+            </div>
+            <div class="gs-item">
+                <span class="gs-icon">🔀</span>
+                <strong>拒绝绑架</strong>
+                <span>自由切换 Ollama 与云端大模型</span>
+            </div>
+            <div class="gs-item">
+                <span class="gs-icon">⚡</span>
+                <strong>极速唤醒</strong>
+                <span>常驻菜单栏，随叫随到</span>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
+
+        <!-- ═══ Left Panel: Context Files ═══ -->
         <div class="left-panel">
-            <h3>≡ 开源生态接入</h3>
+            <h3>≡ 上下文注入</h3>
             <div class="drop-zone" data-target="openclaw">
                 <span class="icon">🐾</span>
                 <p>OpenClaw SKILL.md</p>
@@ -31,81 +62,76 @@
             <div class="file-info" id="fileInfo"></div>
         </div>
 
+        <!-- ═══ Right Panel: Main Workspace ═══ -->
         <div class="right-panel">
+
+            <!-- Input -->
             <div class="input-section">
-                <h3>✎ 15分钟无内耗 Micro-Post</h3>
-                <textarea id="microInput" placeholder="💡 欢迎使用 CoffeeAgent — 你的个人 AI 终点站！
-
-【它能解决什么痛点？】
-1. 绝对隐私：支持本地断网运行，公司机密 / 私人日记放心处理。
-2. 拒绝大厂绑架：一键无缝切换本地 Ollama 与顶级云端大模型（硅基流动 DeepSeek、OpenRouter）。
-3. 极速唤醒：常驻 macOS 菜单栏，随叫随到，用完即走。
-
-【小白如何开始？】
-👇 第1步：在下方『服务提供商』选择你的 AI 大脑并输入 API Key。
-⌨️ 第2步：清空本框，输入你要处理的文本或问题。
-🚀 第3步：点击『生成增强』，见证奇迹。"></textarea>
-                <div class="stats">
-                    <span id="wordCount">0 词</span>
-                    <span id="sentenceCount">0 句</span>
-                    <span id="fleschScore">Flesch: 0</span>
+                <h3>✎ Micro-Post</h3>
+                <textarea id="microInput" placeholder="输入你的问题或要处理的文本... (⌘+Enter 提交)"></textarea>
+                <div class="input-footer">
+                    <div class="stats">
+                        <span id="wordCount">0 词</span>
+                        <span id="sentenceCount">0 句</span>
+                        <span id="fleschScore">Flesch: 0</span>
+                    </div>
+                    <button id="submitBtn" class="primary-btn">⏎ 生成</button>
                 </div>
-                <button id="submitBtn" class="primary-btn">⏎ 生成增强</button>
             </div>
 
+            <!-- Output -->
             <div class="output-section">
-                <h3>◈ 大模型流式输出</h3>
+                <h3>◈ 输出</h3>
                 <div id="streamOutput" class="stream-box"></div>
             </div>
 
+            <!-- Model Dispatcher -->
             <div class="settings-section">
-                <h3>⚙ 混合大模型调度台 (Model Dispatcher)</h3>
+                <h3>⚙ 混合模型调度台</h3>
                 <div class="settings-grid">
+
                     <div class="setting-item">
-                        <label for="providerSelect">服务提供商 (Provider)</label>
+                        <label for="providerSelect">服务提供商</label>
                         <select id="providerSelect">
-                            <option value="local-ollama">Local Ollama (本地服务)</option>
-                            <option value="siliconflow">SiliconFlow (硅基流动)</option>
-                            <option value="openrouter">OpenRouter (万能接入)</option>
-                            <option value="custom">Custom API (自定义接口)</option>
+                            <option value="local-ollama">Local Ollama</option>
+                            <option value="siliconflow">SiliconFlow 硅基流动</option>
+                            <option value="openrouter">OpenRouter</option>
+                            <option value="custom">Custom API</option>
                         </select>
                     </div>
 
-                    <div class="setting-item">
-                        <label for="modelInput">模型名称 (Model)</label>
-                        <div class="model-input-wrapper">
-                            <input type="text" id="modelInput" list="modelSuggestions" placeholder="输入或选择模型...">
-                            <datalist id="modelSuggestions">
-                                <option value="qwen2.5:7b">
-                                <option value="llama3.2:3b">
-                                <option value="deepseek-ai/DeepSeek-V3">
-                                <option value="deepseek-ai/DeepSeek-R1">
-                                <option value="meta-llama/llama-3.3-70b-instruct">
-                                <option value="google/gemini-2.5-flash">
-                                <option value="anthropic/claude-3.5-sonnet">
-                            </datalist>
-                        </div>
+                    <div class="setting-item" id="modelSelectWrapper">
+                        <label for="modelSelect">模型 (本地已安装)</label>
+                        <select id="modelSelect">
+                            <option value="">— 检测中 —</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item" id="modelInputWrapper">
+                        <label for="modelInput">模型名称</label>
+                        <input type="text" id="modelInput" placeholder="如 deepseek-ai/DeepSeek-V3">
                     </div>
 
                     <div class="setting-item" id="apiKeyWrapper">
-                        <label for="apiKeyInput">API 密钥 (API Key)</label>
-                        <input type="password" id="apiKeyInput" placeholder="输入 API Key / Token...">
+                        <label for="apiKeyInput">API Key</label>
+                        <input type="password" id="apiKeyInput" placeholder="sk-...">
                     </div>
 
                     <div class="setting-item" id="baseUrlWrapper">
-                        <label for="baseUrlInput">接口代理地址 (Base URL)</label>
+                        <label for="baseUrlInput">Base URL</label>
                         <input type="text" id="baseUrlInput" placeholder="https://api.example.com/v1">
                     </div>
-                </div>
 
+                </div>
                 <div class="settings-footer">
                     <div class="status-indicator">
-                        <span id="ollamaStatus" class="status-dot"></span>
-                        <span id="statusText">本地服务检测中...</span>
+                        <span id="statusDot" class="status-dot"></span>
+                        <span id="statusText">初始化中...</span>
                     </div>
-                    <button id="saveSettingsBtn" class="primary-btn">💾 保存并应用配置</button>
+                    <button id="saveSettingsBtn" class="primary-btn save-btn">💾 保存配置</button>
                 </div>
             </div>
+
         </div>
     </div>
 
