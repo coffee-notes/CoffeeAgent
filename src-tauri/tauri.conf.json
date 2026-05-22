@@ -27,12 +27,12 @@
     ],
     "security": {
       "csp": "default-src 'self'; connect-src 'self' http://127.0.0.1:11434;"
+    },
+    "trayIcon": {
+      "iconPath": "icons/icon.png",
+      "menuOnLeftClick": false,
+      "iconAsTemplate": true
     }
-  },
-  "trayIcon": {
-    "iconPath": "icons/icon.png",
-    "menuOnLeftClick": false,
-    "iconAsTemplate": true
   },
   "plugins": {
     "shell": {
