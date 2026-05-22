@@ -1,245 +1,68 @@
-# CoffeeAgent
+# CoffeeAgent | 架构师的隐私级本地商业大脑
 
-<p align="center"><img src="./icon.jpg" width="150" alt="CoffeeAgent Icon"/></p>
+<p align="center"><img src="./icon.jpg" width="180" alt="CoffeeAgent" style="border-radius: 20px;"/></p>
 
-> *"The OS for creators who refuse to be a prompt slave."*
-
-[![Tauri](https://img.shields.io/badge/Tauri-2.0-black?logo=tauri&style=flat-square)](https://tauri.app)
-[![Ollama](https://img.shields.io/badge/Ollama-Local-FF6F00?style=flat-square&logoColor=white)](https://ollama.com)
-[![Memory](https://img.shields.io/badge/Memory-35MB-238636?style=flat-square)]()
-[![License](https://img.shields.io/badge/License-MIT-8B949E?style=flat-square)]()
+> **不再做 Prompt 的奴隶，为你的业务建立绝对主权。**
 
 ---
 
-## ⚠️ Status / 运行状态
+## 这不是工具，是基建
 
-**Currently in Alpha. Untested in production. Use at your own risk.**
+CoffeeAgent 不是又一个需要折腾配置的开发者玩具。
 
-当前处于 **Alpha 内测阶段**，尚未经过生产环境全量测试，非技术创作者请耐心等待正式版 Release。
+它是为处理**高价值商业情报**、极度重视**数据主权**、追求**本地化工作流**的独立创作者和企业打造的**数字底盘**。
 
----
-
-## 📸 UI Preview / 界面预览
-
-<p align="center">
-  <img src="docs/mac-ui.png" width="420" alt="macOS Interface"/>
-  <img src="docs/win-ui.png" width="420" alt="Windows Interface"/>
-</p>
+在云端大模型泛滥的时代，每一次粘贴业务文档到网页，都是一次隐私的泄露。CoffeeAgent 让你的模型运行在本地 M4 Mac 上，数据不出库，绝对安全。
 
 ---
 
-## 📥 Quick Install / 极速安装
+## 三项核心主权
 
-### For Non-technical Creators / 面向非技术创作者
+| 维度 | 传统云端工具 | CoffeeAgent |
+|------|-------------|-------------|
+| **数据主权** | 上传至第三方服务器，训练集的一部分 | 100% 本地运行，物理断网也可工作 |
+| **效率主权** | 20 个标签页、5 次登录、3 次权限申请 | 双击即用，`⌥Space` 极速唤醒 |
+| **架构主权** | 玩具级脚本，无法支撑业务自动化 | 架构师级底盘，为 24/7 情报收集而生 |
 
-**Windows:**
-1. Visit **[Releases](https://github.com/coffee-notes/CoffeeAgent/releases)** → Download `CoffeeAgent-Setup.exe`
-2. Double-click to install → Press `Alt + Space` to activate
+---
 
-**Mac:**
-1. Visit **[Releases](https://github.com/coffee-notes/CoffeeAgent/releases)** → Download `CoffeeAgent.dmg`
-2. Drag to Applications → Press `⌥ + Space` to activate
+## 即刻部署
 
-**Windows 用户：**
-1. 访问 **[Releases](https://github.com/coffee-notes/CoffeeAgent/releases)** → 下载 `CoffeeAgent-Setup.exe`
-2. 双击安装 → 按 `Alt + 空格键` 唤醒
+无需开发背景，无需阅读文档，无需配置环境。
 
 **Mac 用户：**
-1. 访问 **[Releases](https://github.com/coffee-notes/CoffeeAgent/releases)** → 下载 `CoffeeAgent.dmg`
-2. 拖入应用程序文件夹 → 按 `⌥ + 空格键` 唤醒
+1. 前往 **[Releases](https://github.com/coffee-notes/CoffeeAgent/releases)** → 下载 `CoffeeAgent.dmg`
+2. 拖入「应用程序」文件夹，双击运行
+3. 按 `⌥ + Space` 唤醒你的私有大脑
 
-### One-Command Deployment / 一键部署
+**Windows 用户：**
+1. 前往 **[Releases](https://github.com/coffee-notes/CoffeeAgent/releases)** → 下载 `CoffeeAgent-Setup.exe`
+2. 双击安装，按 `Alt + Space` 唤醒
 
-**macOS / Linux:**
-```bash
-curl -sSL https://raw.githubusercontent.com/coffee-notes/CoffeeAgent/main/install.sh | bash
-```
-
-**Windows (PowerShell):**
-```powershell
-irm https://raw.githubusercontent.com/coffee-notes/CoffeeAgent/main/install.bat | iex
-```
+配合 Ollama 本地模型，构建你的商业情报中枢。
 
 ---
 
-## 🧠 Ollama Setup / 大模型配置
+## 🤝 商业审计与私有化部署
 
-CoffeeAgent requires local LLM inference via Ollama. Your data never leaves your machine.
+CoffeeAgent 是 Hermes 商业基建体系的核心外壳。
 
-CoffeeAgent 依赖本地大模型 Ollama 运行，数据永不离开本机。
+开源的永远只是冰山一角。对于复杂的企业级业务流——自动化情报收集、高阶 CRM 架构、私有化知识图谱搭建——你需要的是架构师级的深度审计与定制部署。
 
-### 3-Step Configuration / 三步配置
+### 你的团队是否面临这些困境？
 
-1. **Download Ollama / 下载 Ollama**
-   - Visit [ollama.com/download](https://ollama.com/download)
-   - 访问 [ollama.com/download](https://ollama.com/download)
+- AI 落地成本高昂，数据隐私却毫无保障
+- 业务逻辑混乱，Notion 和智能体都无法实现真正的自动化
+- 缺乏具备架构思维的工程师，将商业需求转化为技术基建
 
-2. **Pull Model / 拉取模型**
-   ```bash
-   ollama pull qwen2.5:7b
-   ```
+### 这不是咨询，是落地。
 
-3. **Launch CoffeeAgent / 启动 CoffeeAgent**
-   - The app will auto-detect Ollama on port 11434
-   - 应用将自动检测 11434 端口的 Ollama 服务
+**[👉 预约架构师私有化审计](https://coffee-notes.com/audit)**
 
-> ✅ Ollama runs as a background service. Zero-config after initial setup.
-> 安装后 Ollama 作为后台服务运行，Zero-config 免配置。
+开启 **21 天落地护航服务**：从业务诊断、架构设计到私有化部署，全链路交付。
 
 ---
 
-## 🎯 Project Identity
+*Developed by Coffee Notes | 独立架构师*
 
-`CoffeeAgent` is not another AI wrapper. It is a **control center** for the modern content creator's toolchain, engineered for **100% local data sovereignty** with **sub-50ms activation latency**.
-
-| Component | Purpose | Integration |
-|-----------|---------|-------------|
-| **OpenClaw** | `SKILL.md` knowledge base | Drag-drop semantic search |
-| **Hermes** | Trigger automation configs | Real-time YAML/JSON ingest |
-| **OpenHuman** | Obsidian memory vault | Bidirectional thought linking |
-| **Ollama** | Local LLM inference | Zero-config 11434 bridge |
-
----
-
-## Why It Exists
-
-```
-Problem:                          Solution:
-─────────────────────────────────────────────────────────
-Cloud AI lock-in              →  CoffeeAgent: 100% local
-20 tools, 20 browser tabs     →  Single ⌥Space spotlight
-Electron apps: 2GB RAM        →  Tauri baseline: 35MB
-Prompt engineering fatigue    →  Flesch-calibrated output
-Vector DB complexity          →  Pure text, pure speed
-```
-
-We believe in **human-curated knowledge** over **synthetic slop**. This tool enforces that philosophy through architecture.
-
----
-
-## Architecture Diagram
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    macOS / Linux / Windows                 │
-│                        (System Tray)                       │
-└──────────────────────┬──────────────────────────────────────┘
-                       │ ⌥Space Global Shortcut
-                       ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     Tauri 2.0 Runtime                      │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
-│  │  Rust Core      │  │   WebView       │  │  Tokio HTTP  │ │
-│  │  • System Tray  │  │   • Vanilla JS  │  │  • Ollama    │ │
-│  │  • Global Keys  │  │   • No React    │  │    Streaming │ │
-│  │  • File I/O     │  │   • CSS Grid    │  │  • 5m TTL    │ │
-│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-         ┌─────────────┼─────────────┐
-         ▼             ▼             ▼
-┌────────────────┐ ┌─────────┐ ┌──────────────────┐
-│   OpenClaw     │ │ Hermes  │ │   OpenHuman      │
-│  (SKILL.md)    │ │ (YAML)  │ │  (Obsidian MD)   │
-│   ─────────    │ │ ─────── │ │   ────────────   │
-│  • Drag-drop   │ │ • Trig. │ │  • Wiki-links    │
-│  • Flesch Ease │ │ • Pipes │ │  • Knowledge G.  │
-└────────────────┘ └─────────┘ └──────────────────┘
-         │
-         ▼
-┌────────────────────────────────────────────────────┐
-│              Ollama (127.0.0.1:11434)              │
-│  • qwen2.5:7b  (default, multilingual)             │
-│  • llama3.2:3b (ultra-light)                       │
-│  • phi4:3.8b   (reasoning)                         │
-│  • gemma3:4b   (Google)                            │
-│  Streaming: true | Keep-alive: 5min | VRAM: auto   │
-└────────────────────────────────────────────────────┘
-```
-
----
-
-## Core Features
-
-### 1. Spotlight-Style Activation
-- **Global hotkey**: `⌥Space` (Option+Space)
-- **System tray** persistent; no dock icon clutter
-- **Zero-latency** window toggle (<50ms)
-
-### 2. Native File Bridge
-```bash
-# Drop zones support:
-*.md   → OpenClaw skill files
-*.json → Hermes trigger configs
-*.yaml → Hermes pipelines
-*.md   → OpenHuman memory trees
-```
-All processing happens **in-memory**. No cloud upload. No telemetry.
-
-### 3. Flesch-Calibrated Output
-```javascript
-flesch = 206.835 
-  - 1.015 × (totalWords / totalSentences)
-  - 84.6 × (totalSyllables / totalWords)
-```
-
-| Score | Readability |
-|-------|-------------|
-| 90-100 | Grade 5 (Very Easy) |
-| 60-70  | Grade 8-9 (Standard) |
-| 30-40  | College (Difficult) |
-| 0-30   | Professional (Hard) |
-
-### 4. Streaming Ollama Pipeline
-```javascript
-fetch("http://127.0.0.1:11434/api/generate", {
-  stream: true,
-  keep_alive: "5m"
-});
-```
-
----
-
-## Technical Specs
-
-| Metric | Value |
-|--------|-------|
-| Runtime Memory | ~35MB (Rust+WebView) |
-| Binary Size | ~15MB (macOS ARM64) |
-| Boot Time | <200ms |
-| Activation | <50ms (⌥Space) |
-| Runtime Dependencies | 0 |
-| Build Time | ~45s (release) |
-
----
-
-## Roadmap
-
-- [ ] v0.2.0: MDX support for OpenHuman v2
-- [ ] v0.3.0: WebDAV sync for skill libraries
-- [ ] v0.4.0: WASM plugins for custom transformers
-- [ ] v0.5.0: Linux ARM64 builds
-
----
-
-## Philosophy
-
-> "The best tool is the one you forget is there."
-
-CoffeeAgent prioritizes:
-1. **Local-first** → Your data never leaves the machine
-2. **Ephemeral** → No database, no state files, pure runtime
-3. **Composable** → Plays nice with existing CLI workflows
-4. **Hackable** → 100% vanilla JS, no build step for UI mods
-
----
-
-## License
-
-MIT © 2025 CoffeeAgent Contributors
-
----
-
-**Built with** ☕ **by creators, for creators.**
-
-*Star this repo if you believe in local AI sovereignty.*
+*不教学，不解释，只交付结果。*
