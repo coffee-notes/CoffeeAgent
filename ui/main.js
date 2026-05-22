@@ -13,8 +13,33 @@ class CoffeeAgent {
         this.bindDropZones();
         this.bindInputHandlers();
         this.bindSettings();
+        this.injectWelcomeText();
         this.checkOllamaStatus();
         setInterval(() => this.checkOllamaStatus(), 10000);
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // New-User Onboarding: Inject welcome text into the textarea
+    // Only shown when the textarea is empty (first-time feel)
+    // ═══════════════════════════════════════════════════════════
+    injectWelcomeText() {
+        const textarea = document.getElementById('microInput');
+        if (!textarea || textarea.value.trim() !== '') return;
+
+        textarea.value = `💡 欢迎使用 CoffeeAgent — 你的个人 AI 终点站！
+
+【它能解决什么痛点？】
+1. 绝对隐私：支持本地断网运行，公司机密 / 私人日记放心处理。
+2. 拒绝大厂绑架：一键无缝切换本地 Ollama 与顶级云端大模型（硅基流动 DeepSeek、OpenRouter）。
+3. 极速唤醒：常驻 macOS 菜单栏，随叫随到，用完即走。
+
+【小白如何开始？】
+👇 第1步：在下方『服务提供商』选择你的 AI 大脑并输入 API Key。
+⌨️ 第2步：清空本框，输入你要处理的文本或问题。
+🚀 第3步：点击『生成增强』，见证奇迹。`;
+
+        // Update stats to reflect the welcome text
+        this.updateStats(textarea.value);
     }
 
     // ═══════════════════════════════════════════════════════════
